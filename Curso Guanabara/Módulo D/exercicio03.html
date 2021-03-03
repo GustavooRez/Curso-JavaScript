@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Exercício</title>
+    
+    <style>
+        body{
+            background: blue;
+            font: normal 15pt Arial;
+        }
+        header{
+            color: white;
+            text-align: center;
+        }
+        section{
+            background: white;
+            border-radius: 15px;
+            padding: 3%;
+            width: 500px;
+            margin: auto;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.644);
+        }
+        footer{
+            color: white;
+            text-align: center;
+            font-style: italic;
+        }
+        #imagem{
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <header>
+        <h1>Verificador de Idade</h1>
+    </header>
+    
+    <section>
+        <div>
+          <p>Ano de Nascimento: <input type="number" name="txtano"  id="txtano" min="0"></p>
+          <p>Sexo: <input type="radio" name= "sexo" id= "masculino" >
+            <label for="masculino"> Masculino</label>
+            <input type="radio" name="sexo" id= "feminino" >
+            <label for="feminino"> Feminino</label> </p>
+
+          <p><input type="button" value="Verificar"  onclick="verificar()"></p>
+        </div>
+        <div>
+            <div id = "frase">
+                Preencha para detectarmos o resultado!
+            </div>
+            <div id="imagem">
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy;Gustavo Lindo</p>
+    </footer>
+    
+    <script>
+        function verificar(){
+
+            var data = new Date()
+            var ano = data.getFullYear()
+            var idade = window.document.getElementById('txtano')
+            
+
+            if(idade.value.lenght == 0 || Number(idade.value)>ano){
+                window.alert('Verifique os dados!')
+            }
+
+            else{
+
+                var sexo = window.document.getElementsByName('sexo')
+                var idade_atual = ano - Number(idade.value)
+                var img = document.createElement('img')
+                img.setAttribute('id', 'imagem')
+
+                var genero = ''
+
+                if(sexo[0].checked) {
+                    genero = 'Homem'
+                    
+                    if(idade < 10 && sexo == 'Homem'){
+                        img.setAttribute('src', 'img/crianca-homem.jpg')
+
+                    }
+                    else if(idade < 20 && sexo == 'Homem') {
+                        img.setAttribute('src', 'img/jovem-homem.jpg')
+                    }
+                    else if(idade < 60 && sexo == 'Homem'){
+                        img.setAttribute('src', 'img/adulto-homem.jpg')
+                    }
+                    else if(idade>60 && sexo == 'Homem'){
+                        img.setAttribute('src', 'img/idoso-homem.jpg')
+                    }
+                }
+                else if(sexo[1].checked){
+                    genero = 'Mulher'
+                    
+                    if(idade < 10 && sexo == 'Mulher'){
+                        img.setAttribute('src', 'img/crianca-mulher.jpg')
+                    }
+                    else if(idade < 20 && sexo == 'Mulher') {
+                        img.setAttribute('src', 'img/jovem-mulher.jpg')
+                    }
+                    else if(idade < 60 && sexo == 'Mulher'){
+                        img.setAttribute('src', 'img/adulto-mulher.jpg')
+                    }
+                    else if(idade>60 && sexo == 'Mulher'){
+                        img.setAttribute('src', 'img/idoso-mulher.jpg')
+                    }
+
+                }
+
+                frase.style.textAlign = 'center'
+                frase.innerText = `Detectamos um ${genero} com ${idade_atual} anos`
+                frase.appendChild(img)
+            }
+        }
+    </script>
+
+</body>
+</html>
